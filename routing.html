@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="js/controllers/MainController.js"></script>
+	<script src="js/controllers/PageOneController.js"></script>
+	<script src="js/controllers/PageTwoController.js"></script>
+    <script src="js/services/ProductService.js"></script>
+	<title>	</title>
+</head>
+<body>
+<a href="#/">mian</a>
+<a ui-sref="page1">page1</a>
+<a ui-sref="page2">page2</a>
+
+<hr />
+<ui-view></ui-view>
+
+<script>
+
+    angular.module('myApp', ['ui.router', 
+    			'myApp.controllers.MainController',
+    			'myApp.controllers.PageOneController',
+    			'myApp.controllers.PageTwoController'
+    			])
+    
+    .config(function($stateProvider,$urlRouterProvider) {
+        $stateProvider
+        	.state('main',{
+        		url:"/",  // http://localhost:8080#/
+        		templateUrl:"partials/main.html",
+        		controller: 'MainController'
+        	})
+        	.state('page1',{
+        		url:"/page1", // http://localhost:8080#/page1
+        		templateUrl:"partials/page1.html",
+        		controller: 'PageOneController'
+        	})
+        	.state('page2',{
+        		url:"/page2", // http://localhost:8080#/page2
+        		templateUrl:"partials/page2.html",
+        		controller: function ($scope) {
+                    $scope.item = [1,2,3,4,5];
+                }
+            })
+            .state('page3',{
+                url:"/page3/:id/:name", // http://localhost:8080#/page2/30/text
+                templateUrl:"partials/page3.html",
+                controller: function ($scope, $stateParams) {
+                    console.log($stateParams);
+                    $scope.id = $stateParams.id;
+                    $scope.name = $stateParams.name;
+                }
+            });
+        	
+        $urlRouterProvider.otherwise('/');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<h1>Hello</h1>
+<h1>Main page</h1>
+<hr/>
+<ul>
+	<li ng-repeat="p in products">
+		<a href="#/page3/{{ p.id }}/{{ p.name }}">{{ p.name }}</a>
+	</li>
+</ul>
+<hr/>
+<table border="1" width="480">
+	<tr ng-repeat="user in users">
+		<td>{{ user.name }}</td>
+		<td>{{ user.email }}</td>
+	</tr>
+</table>
